@@ -1,35 +1,5 @@
 pipeline {
     agent any
-    tools {
-        terraform 'bibtya'
-    }
-    stages {
-        stage('Terraform Init') {
-            steps {
-                sh 'terraform init'
-            }
-        }
-         stage('Terraform fmt-validate') {
-            steps {
-                sh '''
-                terraform fmt
-                terraform validate
-                '''
-            }
-        }
-         stage('Terraform plan') {
-            steps {
-                sh 'terraform plan'
-            }
-        }
-         stage('Terraform APPLY') {
-            steps {
-                sh 'terraform apply -auto-approve'
-            }
-        }
-
-pipeline {
-    agent any
 
     stages {
 
@@ -59,11 +29,4 @@ pipeline {
         }
 
     }
-}
-
-    }
-
-
-
-
 }
