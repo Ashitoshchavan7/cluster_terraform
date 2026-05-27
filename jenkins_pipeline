@@ -1,9 +1,7 @@
 pipeline {
-    agent {
-        label 'ag-2' 
-        }
+    agent any
     tools {
-        terraform 'tf-install'
+        terraform 'bibtya'
     }
     stages {
         stage('Terraform Init') {
