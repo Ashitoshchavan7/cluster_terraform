@@ -1,32 +1,36 @@
 pipeline {
-    agent any
-
+    agent {
+        lb
+        }
+    environment {
+        my_aws_access= credentials('my-aws-cred')
+    }
+    tools {
+        terraform 'tf-install'
+    }
     stages {
-
-        stage('Git Checkout') {
-            steps {
-                git branch: 'main',
-                url: 'https://github.com/Ashitoshchavan7/cluster_terraform.git'
-            }
-        }
-
-        stage('Terraform Version') {
-            steps {
-                sh 'terraform --version'
-            }
-        }
-
         stage('Terraform Init') {
             steps {
                 sh 'terraform init'
             }
         }
-
-        stage('Terraform Validate') {
+         stage('Terraform fmt-validate') {
             steps {
-                sh 'terraform validate'
+                sh '''
+                terraform fmt
+                terraform validate
+                '''
             }
         }
-
+         stage('Terraform plan') {
+            steps {
+                sh 'terraform plan'
+            }
+        }
+         stage('Terraform APPLY') {
+            steps {
+                sh 'terraform apply -auto-approve'
+            }
+        }
     }
 }
