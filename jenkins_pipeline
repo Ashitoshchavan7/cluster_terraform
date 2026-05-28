@@ -6,7 +6,7 @@ pipeline {
         my_aws_access= credentials('my-aws-cred')
     }
     tools {
-        terraform 'tf-install'
+        terraform 'bibtya'
     }
     stages {
         stage('Terraform Init') {
